@@ -12,6 +12,7 @@
                         <div class="collapse navbar-collapse" id="collapsibleNavId">
                             <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                                 <li class="nav-item">
+                                    
                                     <a class="nav-link active" href="#" aria-current="page">Khảo sát <span
                                             class="visually-hidden">(current)</span></a>
                                 </li>

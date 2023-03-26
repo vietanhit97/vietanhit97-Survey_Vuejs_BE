@@ -1,15 +1,14 @@
 <template>
-  <PageSurveySetup />
+  <div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import PageSurveySetup from './PageSurveySetup.vue'
+
 
 export default {
-  name: 'App',
-  components: {
-    PageSurveySetup
-  }
+  name: 'App'
 }
 </script>
 
