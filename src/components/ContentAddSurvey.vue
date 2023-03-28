@@ -1,6 +1,6 @@
 <template>
     <div class="ContentAddSurvey">
-        <div class="content">
+        <div class="content-header">
             <div class="text-left">
                 <h2>
                     Tạo Khảo Sát
@@ -128,7 +128,7 @@ export default {
 </script>
 
 <style>
-.content {
+.content-header {
     padding: 40px;
     border-bottom: 1px solid #000000;
 }

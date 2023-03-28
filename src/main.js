@@ -12,7 +12,10 @@ Vue.use(IconsPlugin)
 Vue.use(VueRouter)
 import Home from './PageListSurvey.vue'
 import About from './PageSurveySetup.vue'
-import Content from './PageCreateContent.vue'
+import Content from './PageCreateImage.vue'
+import Text from './PageCreateText.vue'
+import PageListSurveyUser from './PageListSurveyUser.vue'
+import PageSurveyUser from './PageSurveyUser.vue'
 const router = new VueRouter({
   mode: 'history',
   routes: [
@@ -29,6 +32,20 @@ const router = new VueRouter({
       path: '/content',
       name: 'content',
       component: Content
+    },
+    {
+      path: '/text',
+      name: 'text',
+      component: Text
+    }, {
+      path: '/user-listsurvey',
+      name: 'user-listsurvey',
+      component: PageListSurveyUser
+    },
+    {
+      path: '/user-survey',
+      name: 'user-survey',
+      component: PageSurveyUser
     },
   ]
 })

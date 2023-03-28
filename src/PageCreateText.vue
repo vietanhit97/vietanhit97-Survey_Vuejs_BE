@@ -1,20 +1,21 @@
 <template>
     <div class="wrapper">
         <PageHearder />
-        <CreateQuestionContent />
-        <PageFooter />
+        <SaveContent/>
+        <CreateQuestionText />
+        
     </div>
 </template>
 
 <script>
 import PageHearder from './components/layout/PageHearder.vue'
-import PageFooter from './components/layout/PageFooter.vue'
-import CreateQuestionContent from './components/CreateQuestionContent.vue'
-
+// import PageFooter from './components/layout/PageFooter.vue'
+import CreateQuestionText from './components/CreateQuestionText.vue'
+import SaveContent from './components/SaveContent.vue'
 export default {
     name: 'PageSurveySetup',
     components: {
-        PageHearder, PageFooter, CreateQuestionContent
+        PageHearder, CreateQuestionText,SaveContent
     }
 }
 </script>
