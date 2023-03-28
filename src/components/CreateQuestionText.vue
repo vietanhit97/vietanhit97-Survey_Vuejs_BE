@@ -11,102 +11,44 @@
                         <textarea class="form-control" name="" id="" rows="1"></textarea>
                     </div>
                 </div>
-                <div class="content mt-5">
-                    <div class="row">
-                        <div class="col-4">
-                            <label for="" class="form-label">Câu hỏi ?</label>
-                            <input type="text" name="" id="" class="form-control " placeholder="" aria-describedby="helpId">
-                        </div>
-                        <div class="col-4 ">
-                            <div class="mb-3">
-                                <label for="" class="form-label">Chọn ảnh :</label>
-                                <input type="file" @change="onFileChange" class="form-control" name="" id="" placeholder=""
-                                    aria-describedby="fileHelpId">
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="row">
-                                <div class="col-6">
-                                   
-                                </div>
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Chọn kiểu câu hỏi :</label>
-                                        <select class="form-select form-select-lg" name="" id="">
-                                            <option selected>Chọn 1 </option>
-                                            <option value="">Chọn nhiều</option>
-                                            <option v-on:change="component">Văn bản</option>
-                                            <option v-on:change="component">Thang điểm</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center align-items-center">
-                        <img :src="selectedImage" alt="">
-                    </div>
-                    <component v-bind:is="component"></component>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="">
-                        <label class="form-check-label" for="">
-                            Tùy chọn 1
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="" checked>
-                        <label class="form-check-label" for="">
-                            Thêm tùy chọn
-                        </label>
-                    </div>
-                    <div class="row mt-5">
-                        <div class="col-6">
-                        </div>
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="">
-                                        <label class="form-check-label" for="">
-                                            Bắt buộc trả lời
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <input type="reset" class="btn btn-danger" value="Hủy">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <QuestionSurvey />
+                <div v-for="(component, index) in components" :key="index">
+                    <QuestionSurvey v-if="component.show" />
                 </div>
-                <div class="d-flex justify-content-center align-items-center mt-5">
-                    <a name="" id="" class="btn btn-primary" href="#" role="button">Thêm câu hỏi</a>
-                </div>
+             
             </form>
+            <div class="d-flex justify-content-center align-items-center mt-5">  
+                <button @click="addComponent" class="btn btn-success me-2">Thêm câu hỏi</button>
+                <button @click="removeComponent" class="ml-2 btn btn-danger">Xóa câu hỏi</button>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import TextView from './TextView.vue'
-import OneSelectView from './OneSelectView.vue'
+import QuestionSurvey from './QuestionSurvey.vue'
+
 export default {
     name: 'CreateQuestionText',
-    components:{
-        TextView,OneSelectView
-    },
-    data() {
+    components: {
+        QuestionSurvey
+    }, data() {
         return {
-            selectedImage: null,
-            component : 'OneSelectView'
+            components: []
         }
-    }, methods: {
-        onFileChange(e) {
-            const file = e.target.files[0];
-            this.selectedImage = URL.createObjectURL(file);
-            console.log(this.selectedImage);
+    },
+    methods: {
+        addComponent() {
+            this.components.push({ show: true });
+        },
+        removeComponent() {
+            // tìm phần tử đầu tiên có thuộc tính show là true và xóa nó đi
+            const component = this.components.find(c => c.show);
+            if (component) {
+                component.show = false;
+            }
         }
-    }
+    },
 }
 </script>
 
@@ -125,7 +67,8 @@ export default {
 .CreateQuestionContent .content {
     border-bottom: 1px dashed black;
 }
-.text-bg{
+
+.text-bg {
     background-color: #D9D9D9;
 }
 </style>

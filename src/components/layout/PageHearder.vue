@@ -1,5 +1,5 @@
 <template>
-    <header >
+    <header class="">
         <div class="row">
             <div class="col-sm-4">
                 <a href="https://trithucmoi.co/">
@@ -57,4 +57,5 @@ header {
     background: #E3C2B9;
     padding: 20px;
 }
+
 </style>

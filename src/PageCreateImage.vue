@@ -2,7 +2,7 @@
     <div class="wrapper">
         <PageHearder />
         <SaveContent/>
-        <CreateQuestionImage />   
+        <CreateQuestionImage />    
     </div>
 </template>
 

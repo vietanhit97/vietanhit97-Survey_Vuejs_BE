@@ -1,15 +1,15 @@
 <template>
-    <div class="SaveContent mb-5">
-        <div class="content-header">
-            <div class="row">
+    <div class="SaveContent mb-5 ">
+        <div class=" content-header ">
+            <div class="row ">
                 <div class="col-6 text-left">
-                    <h2 c>
+                    <h2 >
                         Tạo Khảo Sát
                     </h2>
                 </div>
-                <div class="col-6 text-end">                 
-                        <a href="" class="btn btn-success me-2">Lưu nháp</a>
-                        <a href="" class="btn btn-success ">Lưu chính thức</a>     
+                <div class="col-6 text-end">
+                    <a href="" class="btn btn-success me-2">Lưu nháp</a>
+                    <a href="" class="btn btn-success ">Lưu chính thức</a>
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
 </template>
 
@@ -65,4 +65,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+</style>
