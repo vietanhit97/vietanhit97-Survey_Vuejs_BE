@@ -8,8 +8,8 @@
             <div class="col-4 ">
                 <div class="mb-3">
                     <label for="" class="form-label">Chọn ảnh :</label>
-                    <input type="file" @change="onFileChange" class="form-control" name="" id="" placeholder=""
-                        aria-describedby="fileHelpId">
+                    <input type="file" ref="fileInput" @change="previewImage" class="form-control" name="" id=""
+                        placeholder="" aria-describedby="fileHelpId">
                 </div>
             </div>
             <div class="col-4">
@@ -31,7 +31,8 @@
             </div>
         </div>
         <div class="d-flex justify-content-center align-items-center">
-            <img :src="selectedImage" alt="">
+            <img v-if="imageUrl" :src="imageUrl" class ="me-2"/>
+            <button v-if="imageUrl" @click="deleteImage" class="btn btn-sm btn-danger">Xóa ảnh</button>
         </div>
         <component :is="component"></component>
         <div class="form-check">
@@ -59,9 +60,6 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <input type="reset" class="btn btn-danger" value="Hủy">
-                    </div>
                 </div>
             </div>
         </div>
@@ -72,20 +70,28 @@
 import TextView from './TextView.vue'
 import OneSelectView from './OneSelectView.vue'
 export default {
-    name : 'QuestionSurvey',
-    components:{
-        TextView,OneSelectView
-    },
-    data() {
+    name: 'QuestionSurvey',
+    components: {
+        TextView, OneSelectView
+    }, data() {
         return {
-            selectedImage: null,
-            component : 'TextView'
+            component : 'TextView',
+            imageUrl: null
         }
-    }, methods: {
-        onFileChange(e) {
-            const file = e.target.files[0];
-            this.selectedImage = URL.createObjectURL(file);
-            console.log(this.selectedImage);
+    },
+    methods: {
+        previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (e) => {
+                this.imageUrl = e.target.result;
+            }
+            // Clear the input to allow selecting the same file again
+            this.$refs.fileInput.value = null;
+        },
+        deleteImage() {
+            this.imageUrl = null;
         }
     }
 }

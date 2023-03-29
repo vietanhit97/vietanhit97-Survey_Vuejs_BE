@@ -12,7 +12,6 @@ Vue.use(IconsPlugin)
 Vue.use(VueRouter)
 import Home from './PageListSurvey.vue'
 import About from './PageSurveySetup.vue'
-import Content from './PageCreateImage.vue'
 import Text from './PageCreateText.vue'
 import PageListSurveyUser from './PageListSurveyUser.vue'
 import PageSurveyUser from './PageSurveyUser.vue'
@@ -28,10 +27,6 @@ const router = new VueRouter({
       path: '/about',
       name: 'about',
       component: About
-    }, {
-      path: '/content',
-      name: 'content',
-      component: Content
     },
     {
       path: '/text',
