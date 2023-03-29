@@ -15,6 +15,8 @@ import About from './PageSurveySetup.vue'
 import Text from './PageCreateText.vue'
 import PageListSurveyUser from './PageListSurveyUser.vue'
 import PageSurveyUser from './PageSurveyUser.vue'
+import PagePreviewSurvey from './PagePreviewSurvey.vue'
+import PageListEmployeeSurvey from './PageListEmployeeSurvey.vue'
 const router = new VueRouter({
   mode: 'history',
   routes: [
@@ -41,6 +43,15 @@ const router = new VueRouter({
       path: '/user-survey',
       name: 'user-survey',
       component: PageSurveyUser
+    },
+    {
+      path: '/preview-survey',
+      name: 'preview-survey',
+      component: PagePreviewSurvey
+    }, {
+      path: '/list-employee',
+      name: 'list-employee',
+      component: PageListEmployeeSurvey
     },
   ]
 })
