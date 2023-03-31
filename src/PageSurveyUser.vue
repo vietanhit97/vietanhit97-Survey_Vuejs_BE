@@ -1,18 +1,16 @@
 <template>
     <div class="wrapper">
         <PageHearderUser />
-        <UserSurvey />
-        <PageFooter />
+        <PreviewSurvey class="mt-5" />
     </div>
 </template>
 
 <script>
 import PageHearderUser from './components/layout/PageHearderUser.vue'
-import PageFooter from './components/layout/PageFooter.vue'
-import UserSurvey from './components/user/UserSurvey.vue'
+import PreviewSurvey from './components/PreviewSurvey.vue'
 export default {
     name: 'ListSurvey',
-    components: { UserSurvey, PageHearderUser, PageFooter }
+    components: { PreviewSurvey, PageHearderUser }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <PageHearder />
-        <SaveContent/>
+        <SaveContent />
         <PreviewSurvey />
     </div>
 </template>
@@ -13,7 +13,7 @@ import SaveContent from './components/SaveContent.vue'
 export default {
     name: 'PageSurveySetup',
     components: {
-        PageHearder, PreviewSurvey,SaveContent
+        PageHearder, PreviewSurvey, SaveContent
     }
 }
 </script>
