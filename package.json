@@ -16,8 +16,11 @@
     "fontawesome-free": "^1.0.4",
     "jquery": "^3.6.4",
     "popper.js": "^1.16.1",
+    "vee-validate": "^3.4.15",
     "vue": "^2.7.14",
-    "vue-router": "^3.6.5"
+    "vue-pagination-2": "^3.1.0",
+    "vue-router": "^3.6.5",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

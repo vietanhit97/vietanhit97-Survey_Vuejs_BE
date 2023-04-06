@@ -9,13 +9,15 @@
         </div>
       </div>
     </div>
-    <form class="d-flex">
+    <!-- <form class="d-flex" action="" method="post" @submit.prevent="submitForm">
       <div class="container bg-form mt-5">
         <div class="row bg-row">
           <div class="col-7">
             <div class="mb-3">
               <label for="" class="form-label">Họ và tên :</label>
-              <input type="text" name="" id="" class="form-control form-el" placeholder="" aria-describedby="helpId">
+              <input type="text" name="" id="" class="form-control  form-el" placeholder="" aria-describedby="helpId"
+                v-model="username" required>
+              <div class="invalid-feedback" v-if="$errors.has('username')">{{ errors.username[0] }}</div>
             </div>
             <div class="mb-3">
               <label for="" class="form-label">Số điện thoại:</label>
@@ -64,16 +66,46 @@
         </div>
         <div class="d-flex justify-content-center align-items-center mt-3">
           <button type="button" class="btn  btn-danger me-5">Hủy</button>
-          <button type="button" class="btn btn-success">Thêm</button>
+          <button type="submit" class="btn btn-success">Thêm</button>
         </div>
       </div>
-    </form>
+    </form> -->
+    <ValidationObserver v-slot="{ invalid }">
+      <form @submit.prevent="onSubmit">
+        <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
+          <input v-model="email" type="email">
+          <span>{{ errors[0] }}</span>
+        </ValidationProvider>
+
+        <ValidationProvider name="First Name" rules="required|alpha" v-slot="{ errors }">
+          <input v-model="firstName" type="text">
+          <span>{{ errors[0] }}</span>
+        </ValidationProvider>
+
+        <ValidationProvider name="Last Name" rules="required|alpha" v-slot="{ errors }">
+          <input v-model="lastName" type="text">
+          <span>{{ errors[0] }}</span>
+        </ValidationProvider>
+        <button type="submit" :disabled="invalid">Submit</button>
+      </form>
+    </ValidationObserver>
   </div>
 </template>
 
 <script>
+
 export default {
-  name : 'FormCreateEmployee'
+  name: 'FormCreateEmployee',
+  data: () => ({
+    email: '',
+    firstName: '',
+    lastName: ''
+  }),
+  methods: {
+    onSubmit() {
+      alert('Thêm Thành công!');
+    }
+  }
 }
 </script>
 
@@ -85,14 +117,16 @@ export default {
   outline: none;
   /* Loại bỏ viền xung quanh trường nhập liệu */
 }
+
 .bg-form {
   background-color: #ECE8E8;
   padding: 40px;
-  border-radius : 30px;
+  border-radius: 30px;
 }
-.bg-row{
+
+.bg-row {
   background-color: #CBDBEB;
   padding: 20px;
-  border-radius : 20px;
+  border-radius: 20px;
 }
 </style>
