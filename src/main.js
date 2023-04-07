@@ -29,6 +29,8 @@ import PageListEmployeeSurvey from './PageListEmployeeSurvey.vue'
 import PageFormCreateEmployee from './PageFormCreateEmployee.vue'
 import PageStatisticalSurvey from './PageStatisticalSurvey.vue'
 import PageExternalUsers from './PageExternalUsers.vue'
+import PageTY from './PageTY.vue'
+
 const router = new VueRouter({
   mode: 'history',
   routes: [
@@ -52,7 +54,7 @@ const router = new VueRouter({
       component: PageListSurveyUser
     },
     {
-      path: '/user-survey',
+      path: '/user-survey/:id',
       name: 'user-survey',
       component: PageSurveyUser
     },
@@ -79,6 +81,11 @@ const router = new VueRouter({
       path: '/external-users',
       name: 'external-users',
       component: PageExternalUsers
+    },
+    {
+      path: '/tk-user',
+      name: 'tk-user',
+      component: PageTY
     },
   ]
 })
