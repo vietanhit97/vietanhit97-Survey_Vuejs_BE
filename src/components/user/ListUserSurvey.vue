@@ -40,7 +40,7 @@
                         <td class="text-right">{{ index+=1 }}</td>
                         <td class="text-left">{{ survey.nameSurvey }}</td>
                         <td  class="text-left">{{ survey.contentSurvey }}</td>
-                        <td> <router-link class="btn btn-info text-right" :to="{ name: 'user-survey', params: { id: survey.id } }"><i class="fa-solid fa-ellipsis "></i></router-link></td>
+                        <td> <router-link class="btn" :to="{ name: 'user-survey', params: { id: survey.id } }"><i class="btn-info fa-solid fa-circle-info fa-2x"></i></router-link></td>
                     </tr>
                 </tbody>
             </table>

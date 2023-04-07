@@ -63,18 +63,18 @@
                         <th scope="col">Chọn</th>
                         <th scope="col">Tên</th>
                         <th scope="col">Vị trí</th>
+                        <th scope="col">Gmail</th>
                         <th scope="col">Vị trò</th>
                         <th scope="col">Số điện thoại</th>
-                        <th scope="col">Gmail</th>
                         <th scope="col">Chức Năng </th>
                     </tr>
                 </thead>
                 <tbody class="tbody">
                     <tr v-for="employee in employees" :key="employee.id">
                         <th scope=""><input type="checkbox" v-model="employee.checked" @change="updateCheckedStatus" /></th>
-                        <td>{{ employee.userName }}</td>
+                        <td class="text-left">{{ employee.userName }}</td>
                         <td>{{ employee.departmentName }}</td>
-                        <td>{{ employee.email }}</td>
+                        <td class="text-left">{{ employee.email }}</td>
                         <td>{{ employee.roleName }}</td>
                         <td>{{ employee.phoneNumber }}</td>
                         <td><a class="btn btn-sm " @click="confirmDelete(employee.id)"><i
