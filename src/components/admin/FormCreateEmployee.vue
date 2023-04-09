@@ -70,7 +70,7 @@
         </div>
       </div>
     </form> -->
-    <ValidationObserver v-slot="{ invalid }">
+    <!-- <ValidationObserver v-slot="{ invalid }">
       <form @submit.prevent="onSubmit">
         <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
           <input v-model="email" type="email">
@@ -88,7 +88,7 @@
         </ValidationProvider>
         <button type="submit" :disabled="invalid">Submit</button>
       </form>
-    </ValidationObserver>
+    </ValidationObserver> -->
   </div>
 </template>
 
