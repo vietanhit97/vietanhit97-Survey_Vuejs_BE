@@ -30,7 +30,8 @@ import PageFormCreateEmployee from './PageFormCreateEmployee.vue'
 import PageStatisticalSurvey from './PageStatisticalSurvey.vue'
 import PageExternalUsers from './PageExternalUsers.vue'
 import PageTY from './PageTY.vue'
-
+import PageRegisterUser from './PageRegisterUser.vue'
+import PageRegiterSuccess from './PageRegiterSuccess.vue'
 const router = new VueRouter({
   mode: 'history',
   routes: [
@@ -86,6 +87,16 @@ const router = new VueRouter({
       path: '/tk-user',
       name: 'tk-user',
       component: PageTY
+    },
+    {
+      path: '/register-user',
+      name: 'register-user',
+      component: PageRegisterUser
+    },
+    {
+      path: '/register-success',
+      name: 'register-success',
+      component: PageRegiterSuccess
     },
   ]
 })
