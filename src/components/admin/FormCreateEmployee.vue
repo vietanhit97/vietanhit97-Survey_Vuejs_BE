@@ -9,41 +9,50 @@
         </div>
       </div>
     </div>
-    <!-- <form class="d-flex" action="" method="post" @submit.prevent="submitForm">
-      <div class="container bg-form mt-5">
+    <form class="d-flex" @submit.prevent="addEmployee">
+      <div class="container bg-form mt-4">
         <div class="row bg-row">
           <div class="col-7">
             <div class="mb-3">
               <label for="" class="form-label">Họ và tên :</label>
-              <input type="text" name="" id="" class="form-control  form-el" placeholder="" aria-describedby="helpId"
-                v-model="username" required>
-              <div class="invalid-feedback" v-if="$errors.has('username')">{{ errors.username[0] }}</div>
+              <input type="text" class="form-control  form-el" placeholder="" aria-describedby="helpId"
+                v-model="employee.username" :class="{ 'is-invalid': invalidName }" required>
+              <div class="invalid-feedback">
+                Vui lòng nhập tên !!
+              </div>
             </div>
             <div class="mb-3">
               <label for="" class="form-label">Số điện thoại:</label>
-              <input type="text" name="" id="" class="form-control form-el" placeholder="" aria-describedby="helpId">
+              <input type="text" class="form-control form-el" placeholder="" aria-describedby="helpId"
+                v-model="employee.phone" :class="{ 'is-invalid': invalidPhone }" required>
+              <div class="invalid-feedback">
+                Vui lòng nhập số điện thoại (10-11 số).
+              </div>
             </div>
             <div class="mb-3">
               <label for="" class="form-label">Địa chỉ :</label>
-              <input type="text" name="" id="" class="form-control form-el" placeholder="" aria-describedby="helpId">
+              <input type="text" class="form-control form-el" placeholder="" aria-describedby="helpId"
+                v-model="employee.address" :class="{ 'is-invalid': invalidAddress }" required>
+              <div class="invalid-feedback">
+                Vui lòng nhập địa chỉ !!
+              </div>
             </div>
             <div class="row">
               <div class="col-6">
-                <div class="mb-3 ">
-                  <select class="form-select form-select-lg" name="" id="">
-                    <option selected>Vịt trí</option>
-                    <option value="">Dev</option>
-                    <option value="">Test</option>
-                    <option value="">Brse</option>
+                <div class="mb-3">
+                  <select class="form-select form-select-lg" v-model="employee.department">
+                    <option value="">-- Vị trí --</option>
+                    <option v-for="department in departments" :key="department.id" :value="department.id">{{
+                      department.nameDepartment }}</option>
                   </select>
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3 ">
-                  <select class="form-select form-select-lg" name="" id="">
-                    <option selected>Giới Tính</option>
-                    <option value="">Nam</option>
-                    <option value="">Nữ</option>
+                  <select class="form-select form-select-lg" v-model="employee.sex">
+                    <option value="">-- Giới Tính --</option>
+                    <option value="1">Nam</option>
+                    <option value="0">Nữ</option>
                   </select>
                 </div>
               </div>
@@ -52,16 +61,37 @@
           <div class="col-5">
             <div class="mb-3">
               <label for="" class="form-label">Email :</label>
-              <input type="text" name="" id="" class="form-control form-el" placeholder="" aria-describedby="helpId">
+              <input type="text" class="form-control form-el" placeholder="" aria-describedby="helpId"
+                v-model="employee.email" :class="{ 'is-invalid': invalidEmail }" required>
+              <div class="invalid-feedback">
+                Vui lòng nhập Email và đúng định dạng !!
+              </div>
             </div>
             <div class="mb-3">
               <label for="" class="form-label">Tài khoản :</label>
-              <input type="text" name="" id="" class="form-control form-el" placeholder="" aria-describedby="helpId">
+              <input type="text" class="form-control form-el" placeholder="" aria-describedby="helpId"
+                v-model="employee.account" :class="{ 'is-invalid': invalidAccount }" required>
+              <div class="invalid-feedback">
+                Vui lòng nhập tên tài khoản !!
+              </div>
             </div>
             <div class="mb-3">
               <label for="" class="form-label">Mật khẩu :</label>
-              <input type="text" name="" id="" class="form-control form-el" placeholder="" aria-describedby="helpId">
+              <input type="text" class="form-control form-el" placeholder="" aria-describedby="helpId"
+                v-model="employee.password" :class="{ 'is-invalid': invalidPassword }" required>
+              <div class="invalid-feedback">
+                Vui lòng nhập mật khẩu !!
+              </div>
             </div>
+            <div class="col-6">
+                <div class="mb-3 ">
+                  <select class="form-select form-select-lg" v-model="employee.sex">
+                    <option value="">-- Giới Tính --</option>
+                    <option value="1">Nam</option>
+                    <option value="0">Nữ</option>
+                  </select>
+                </div>
+              </div>
           </div>
         </div>
         <div class="d-flex justify-content-center align-items-center mt-3">
@@ -69,43 +99,84 @@
           <button type="submit" class="btn btn-success">Thêm</button>
         </div>
       </div>
-    </form> -->
-    <!-- <ValidationObserver v-slot="{ invalid }">
-      <form @submit.prevent="onSubmit">
-        <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
-          <input v-model="email" type="email">
-          <span>{{ errors[0] }}</span>
-        </ValidationProvider>
+    </form>
 
-        <ValidationProvider name="First Name" rules="required|alpha" v-slot="{ errors }">
-          <input v-model="firstName" type="text">
-          <span>{{ errors[0] }}</span>
-        </ValidationProvider>
-
-        <ValidationProvider name="Last Name" rules="required|alpha" v-slot="{ errors }">
-          <input v-model="lastName" type="text">
-          <span>{{ errors[0] }}</span>
-        </ValidationProvider>
-        <button type="submit" :disabled="invalid">Submit</button>
-      </form>
-    </ValidationObserver> -->
   </div>
 </template>
 
 <script>
-
+import axios from 'axios';
 export default {
   name: 'FormCreateEmployee',
   data: () => ({
-    email: '',
-    firstName: '',
-    lastName: ''
+    departments: [],
+    roles:[],
+    searchDepartment: '',
+    employee: {
+      email: '',
+      username: '',
+      phone: '',
+      account: '',
+      password: '',
+      address: '',
+      department: '',
+      sex: ''
+    },
   }),
+  mounted() {
+    axios.get('http://localhost:8081/employee/roles-department')
+      .then(response => { 
+        this.departments = response.data.departments;
+        this.roles = response.data.roles; // Gán dữ liệu từ API vào mảng departments
+      })
+      .catch(error => {
+        console.error('Lỗi khi gọi API departments:', error);
+      });
+  }
+  ,
   methods: {
     onSubmit() {
       alert('Thêm Thành công!');
+    },addEmployee() {
+      axios.post('http://localhost:8081/employee/create-employee', this.employee)
+        .then(() => {
+          alert('Employee added successfully!');
+          // Reset the form
+          this.employee.email = '';
+          this.employee.username = '';
+          this.employee.address = '';
+          this.employee.account = '';
+          this.employee.phone = '';
+          this.employee.password = '';
+          this.employee.department = '';
+          this.employee.sex = '';
+        })
+        .catch((error) => {
+          alert('Failed to add employee: ' + error.response.data.message);
+        });
+    },
+  }, computed: {
+    invalidName() {
+      return this.employee.username.trim() === '';
+    },
+    invalidPhone() {
+      const regex = /^[0-9]{10,11}$/;
+      return !regex.test(this.employee.phone.trim());
+    },
+    invalidEmail() {
+      return !this.employee.email.match(/\S+@\S+\.\S+/);
+    },
+    invalidPassword() {
+      return this.employee.password.trim() === '';
+    },
+    invalidAccount() {
+      return this.employee.account.trim() === '';
+    },
+    invalidAddress() {
+      return this.employee.address.trim() === '';
     }
-  }
+  },
+
 }
 </script>
 
@@ -120,7 +191,7 @@ export default {
 
 .bg-form {
   background-color: #ECE8E8;
-  padding: 40px;
+  padding: 40px 40px 20px 40px;
   border-radius: 30px;
 }
 

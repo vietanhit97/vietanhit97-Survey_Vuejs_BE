@@ -51,7 +51,6 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="col-4 d-flex justify-content-center ">
                         <button type="submit" class="btn btn-sm btn-success">Tìm kiếm</button>
                     </div>
@@ -89,6 +88,7 @@
                     @click="deleteSelectedemployees">Xóa</button></div> -->
             <b-pagination v-model="currentPage" :total-rows="total" :per-page="perPage" @input="searchEmployees"
                 align="center" class="my-3"></b-pagination>
+          
         </div>
     </div>
 </template>
@@ -109,6 +109,7 @@ export default {
             searchEmail: '',
             searchDepartment: '',
             searchRole: '',
+            searchPhone:'',
             employeeId: '',
             departments: [],
             roles: [],
@@ -136,9 +137,9 @@ export default {
         searchEmployees(pageNumber = 1) {
             axios.get('http://localhost:8081/employee/search-count', {
                 params: {
-                    name: this.searchName,
-                    email: this.searchEmail,
-                    phone: this.searchPhone,
+                    name: this.searchName.trim(),
+                    email: this.searchEmail.trim(),
+                    phone: this.searchPhone.trim(),
                     department: this.searchDepartment,
                     role: this.searchRole,
                     pageNumber: pageNumber - 1,
