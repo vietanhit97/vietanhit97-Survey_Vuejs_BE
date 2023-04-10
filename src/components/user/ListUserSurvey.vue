@@ -15,12 +15,6 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
-                                placeholder="Đối tượng">
-                        </div>
-                    </div>
-                    <div class="col-4">
                         <button type="button" class="btn btn-success">Tìm kiếm</button>
                     </div>
                 </div>

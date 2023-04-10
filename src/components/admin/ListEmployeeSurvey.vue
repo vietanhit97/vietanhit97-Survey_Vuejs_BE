@@ -29,8 +29,8 @@
                     </div>
                     <div class="col-4">
                         <div class="mb-3">
-                            <input type="text" class="form-control" v-model="searchPhone" name="" id="" aria-describedby="helpId"
-                                placeholder="Số điện thoại ...">
+                            <input type="text" class="form-control" v-model="searchPhone" name="" id=""
+                                aria-describedby="helpId" placeholder="Số điện thoại ...">
                         </div>
                     </div>
                     <div class="col-4">
@@ -88,7 +88,7 @@
                     @click="deleteSelectedemployees">Xóa</button></div> -->
             <b-pagination v-model="currentPage" :total-rows="total" :per-page="perPage" @input="searchEmployees"
                 align="center" class="my-3"></b-pagination>
-          
+
         </div>
     </div>
 </template>
@@ -109,7 +109,7 @@ export default {
             searchEmail: '',
             searchDepartment: '',
             searchRole: '',
-            searchPhone:'',
+            searchPhone: '',
             employeeId: '',
             departments: [],
             roles: [],
@@ -118,20 +118,14 @@ export default {
     mounted() {
         this.searchEmployees(),
             // Gọi API "/departments" bằng Axios khi component được mounted
-            axios.get('http://localhost:8081/department/departments')
+            axios.get('http://localhost:8081/employee/roles-department')
                 .then(response => {
-                    this.departments = response.data; // Gán dữ liệu từ API vào mảng departments
+                    this.departments = response.data.departments;
+                    this.roles = response.data.roles; // Gán dữ liệu từ API vào mảng departments
                 })
                 .catch(error => {
                     console.error('Lỗi khi gọi API departments:', error);
                 });
-        axios.get('http://localhost:8081/role/roles')
-            .then(response => {
-                this.roles = response.data; // Gán dữ liệu từ API vào mảng departments
-            })
-            .catch(error => {
-                console.error('Lỗi khi gọi API departments:', error);
-            });
     },
     methods: {
         searchEmployees(pageNumber = 1) {
