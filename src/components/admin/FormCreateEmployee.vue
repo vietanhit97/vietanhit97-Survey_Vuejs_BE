@@ -49,10 +49,10 @@
               </div>
               <div class="col-6">
                 <div class="mb-3 ">
-                  <select class="form-select form-select-lg" v-model="employee.sex">
-                    <option value="">-- Giới Tính --</option>
-                    <option value="1">Nam</option>
-                    <option value="0">Nữ</option>
+                  <select class="form-select form-select-lg" v-model="employee.role">
+                    <option value="">-- Vai trò --</option>
+                    <option v-for="role in roles" :key="role.id" :value="role.id">{{
+                      role.nameRole }}</option>
                   </select>
                 </div>
               </div>
@@ -77,21 +77,21 @@
             </div>
             <div class="mb-3">
               <label for="" class="form-label">Mật khẩu :</label>
-              <input type="text" class="form-control form-el" placeholder="" aria-describedby="helpId"
+              <input type="password" class="form-control form-el" placeholder="" aria-describedby="helpId"
                 v-model="employee.password" :class="{ 'is-invalid': invalidPassword }" required>
               <div class="invalid-feedback">
                 Vui lòng nhập mật khẩu !!
               </div>
             </div>
             <div class="col-6">
-                <div class="mb-3 ">
-                  <select class="form-select form-select-lg" v-model="employee.sex">
-                    <option value="">-- Giới Tính --</option>
-                    <option value="1">Nam</option>
-                    <option value="0">Nữ</option>
-                  </select>
-                </div>
+              <div class="mb-3 ">
+                <select class="form-select form-select-lg" v-model="employee.sex">
+                  <option value="">-- Giới Tính --</option>
+                  <option value="1">Nam</option>
+                  <option value="0">Nữ</option>
+                </select>
               </div>
+            </div>
           </div>
         </div>
         <div class="d-flex justify-content-center align-items-center mt-3">
@@ -110,7 +110,7 @@ export default {
   name: 'FormCreateEmployee',
   data: () => ({
     departments: [],
-    roles:[],
+    roles: [],
     searchDepartment: '',
     employee: {
       email: '',
@@ -120,12 +120,13 @@ export default {
       password: '',
       address: '',
       department: '',
-      sex: ''
+      sex: '',
+      role: ''
     },
   }),
   mounted() {
     axios.get('http://localhost:8081/employee/roles-department')
-      .then(response => { 
+      .then(response => {
         this.departments = response.data.departments;
         this.roles = response.data.roles; // Gán dữ liệu từ API vào mảng departments
       })
@@ -137,8 +138,19 @@ export default {
   methods: {
     onSubmit() {
       alert('Thêm Thành công!');
-    },addEmployee() {
-      axios.post('http://localhost:8081/employee/create-employee', this.employee)
+    }, addEmployee() {
+      const newEmployee = {
+        userName: this.employee.username,
+        phoneNumber: this.employee.phone,
+        address: this.employee.address,
+        departmentId: this.employee.department,
+        roleId: this.employee.role,
+        email: this.employee.email,
+        nameAccount: this.employee.account,
+        passwordAccount: this.employee.password,
+        eSex: this.employee.sex
+      };
+      axios.post('http://localhost:8081/employee/create-employee', newEmployee)
         .then(() => {
           alert('Employee added successfully!');
           // Reset the form
@@ -150,10 +162,12 @@ export default {
           this.employee.password = '';
           this.employee.department = '';
           this.employee.sex = '';
+          this.employee.role = '';
         })
         .catch((error) => {
           alert('Failed to add employee: ' + error.response.data.message);
         });
+        this.$router.push({ name: 'list-employee' });
     },
   }, computed: {
     invalidName() {

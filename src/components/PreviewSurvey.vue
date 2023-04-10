@@ -107,6 +107,7 @@ export default {
                     // Xử lý lỗi
                     console.log(error);
                 });
+            this.$router.push({ name: 'tk-user' });
         },
     },
 }

@@ -104,7 +104,7 @@ export default {
             employees: [],
             total: 0,
             currentPage: 1,
-            perPage: 2,
+            perPage: 5,
             searchName: '',
             searchEmail: '',
             searchDepartment: '',
