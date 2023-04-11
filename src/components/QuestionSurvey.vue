@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center align-items-center">
-            <img v-if="imageUrl" :src="imageUrl" class ="me-2"/>
+            <img v-if="imageUrl" :src="imageUrl" class="me-2" />
             <button v-if="imageUrl" @click="deleteImage" class="btn btn-sm btn-danger">Xóa ảnh</button>
         </div>
         <component :is="component"></component>
@@ -67,15 +67,11 @@
 </template>
 
 <script>
-import TextView from './TextView.vue'
-import OneSelectView from './OneSelectView.vue'
+
 export default {
-    name: 'QuestionSurvey',
-    components: {
-        TextView, OneSelectView
-    }, data() {
+    name: 'QuestionSurvey', data() {
         return {
-            component : 'TextView',
+            component: 'TextView',
             imageUrl: null
         }
     },

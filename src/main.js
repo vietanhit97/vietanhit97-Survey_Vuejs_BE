@@ -23,6 +23,8 @@ import PageExternalUsers from './PageExternalUsers.vue'
 import PageTY from './PageTY.vue'
 import PageRegisterUser from './PageRegisterUser.vue'
 import PageRegiterSuccess from './PageRegiterSuccess.vue'
+import PageUpdateEmployee from './PageUpdateEmployee.vue'
+
 const router = new VueRouter({
   mode: 'history',
   routes: [
@@ -49,6 +51,11 @@ const router = new VueRouter({
       path: '/user-survey/:id',
       name: 'user-survey',
       component: PageSurveyUser
+    },
+    {
+      path: '/update-employee/:id',
+      name: 'update-employee',
+      component: PageUpdateEmployee
     },
     {
       path: '/preview-survey',

@@ -110,8 +110,9 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center align-items-center mt-5">
-                    <b-button type="submit" class="text-center" variant="success">Tiếp<i class="fa-solid fa-right-long fa-1x "></i></b-button>
-                </div> 
+                    <b-button type="submit" class="text-center" variant="success">Tiếp<i
+                            class="fa-solid fa-right-long fa-1x "></i></b-button>
+                </div>
             </b-form>
         </div>
     </div>

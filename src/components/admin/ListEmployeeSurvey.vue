@@ -14,7 +14,7 @@
         </div>
         <div class="container mt-5">
             <form @submit.prevent="searchEmployees()">
-                <div class="row">
+                <div class="row d-flex justify-content-center ">
                     <div class="col-4">
                         <div class="mb-3">
                             <input type="text" class="form-control" v-model="searchName" id="" aria-describedby="helpId"
@@ -28,9 +28,16 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" v-model="searchPhone" name="" id=""
-                                aria-describedby="helpId" placeholder="Số điện thoại ...">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" v-model="searchPhone" name="" id=""
+                                        aria-describedby="helpId" placeholder="Số điện thoại ...">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" class="btn btn btn-success">Tìm kiếm</button>
+                            </div>
                         </div>
                     </div>
                     <div class="col-4">
@@ -51,15 +58,15 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-4 d-flex justify-content-center ">
-                        <button type="submit" class="btn btn-sm btn-success">Tìm kiếm</button>
+                    <div class="col-4">
                     </div>
                 </div>
+
             </form>
-            <table class="table view-table mt-5">
+            <table class="table view-table mt-3">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">Chọn</th>
+                        <th scope="col">STT</th>
                         <th scope="col">Tên</th>
                         <th scope="col">Vị trí</th>
                         <th scope="col">Gmail</th>
@@ -69,8 +76,8 @@
                     </tr>
                 </thead>
                 <tbody class="tbody">
-                    <tr v-for="employee in employees" :key="employee.id">
-                        <th scope=""><input type="checkbox" v-model="employee.checked" @change="updateCheckedStatus" /></th>
+                    <tr v-for="(employee, index) in employees" :key="employee.id">
+                        <td class="text-right">{{index +=1}}</td>
                         <td class="text-left">{{ employee.userName }}</td>
                         <td>{{ employee.departmentName }}</td>
                         <td class="text-left">{{ employee.email }}</td>
@@ -78,8 +85,8 @@
                         <td>{{ employee.phoneNumber }}</td>
                         <td><a class="btn btn-sm " @click="confirmDelete(employee.id)"><i
                                     class="fa-solid fa-trash-can fa-2x " style="color: red;"></i></a>
-                            <a class="btn btn-sm "><i class="fa-solid fa-pen-to-square fa-2x" style="color: blue;"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModalCenter"></i></a>
+                            <router-link class="btn" :to="{ name: 'update-employee', params: { id: employee.id } }"><i
+                                    class="fa-solid fa-pen-to-square fa-2x" style="color: blue;"></i></router-link>
                         </td>
                     </tr>
                 </tbody>
@@ -138,7 +145,7 @@ export default {
                     role: this.searchRole,
                     pageNumber: pageNumber - 1,
                     pageSize: this.perPage,
-                    departments: []
+                    
                 }
             }).then(response => {
                 this.employees = response.data.data.content;
@@ -147,6 +154,7 @@ export default {
             }).catch(error => {
                 console.log(error);
             });
+
         },
         updateCheckedStatus() {
             this.showDeleteButton = this.employees.some(item => item.checked);
@@ -169,8 +177,8 @@ export default {
                 // Gọi hàm xóa tại đây
                 this.deleteEmployee(id);
             }
-        }
-    }
+        },
+    }, 
 }
 </script>
 

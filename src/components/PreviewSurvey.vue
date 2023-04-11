@@ -32,7 +32,13 @@
                         </div>
                     </div>
                     <div v-else>
-                        Try harder!
+                        <div v-for="option in question.optionQuestionSurveys" :key="option.id">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" :name="option.id" :id="option.nameOption"
+                                    v-model="optionInput[option.id]" :value="option.id">
+                                <label class="form-check-label" for="inlineRadio"> {{ option.nameOption }}</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center align-items-center mt-5">
@@ -80,7 +86,7 @@ export default {
 
                     };
                     answerSurveys.push(answer);
-                } else {
+                } else if (question.questionType.id === 2) {
                     const option = {
                         userId: 5,
                         surveyId: this.survey.id,
@@ -89,6 +95,19 @@ export default {
                         optionQuestionSurvey: this.optionInput[question.id],
                     };
                     answerSurveys.push(option);
+                } else {
+                    for (let option of question.optionQuestionSurveys) {
+                        if (this.optionInput[option.id]) {
+                            const optionAnswer = {
+                                userId: 5,
+                                surveyId: this.survey.id,
+                                question_Survey: question.id,
+                                isDelete: false,
+                                optionQuestionSurvey: option.id,
+                            };
+                            answerSurveys.push(optionAnswer);
+                        }
+                    }
                 }
             }
             // Gửi danh sách AnswerSurvey và OptionQuestionSurvey lên API

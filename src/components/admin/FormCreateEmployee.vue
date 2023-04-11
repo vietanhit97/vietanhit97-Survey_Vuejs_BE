@@ -16,7 +16,7 @@
             <div class="mb-3">
               <label for="" class="form-label">Họ và tên :</label>
               <input type="text" class="form-control  form-el" placeholder="" aria-describedby="helpId"
-                v-model="employee.username" :class="{ 'is-invalid': invalidName }" required>
+                v-model="employee.username" :class="{ 'is-invalid': invalidName }" required @blur="validateName">
               <div class="invalid-feedback">
                 Vui lòng nhập tên !!
               </div>
@@ -24,7 +24,7 @@
             <div class="mb-3">
               <label for="" class="form-label">Số điện thoại:</label>
               <input type="text" class="form-control form-el" placeholder="" aria-describedby="helpId"
-                v-model="employee.phone" :class="{ 'is-invalid': invalidPhone }" required>
+                v-model="employee.phone" :class="{ 'is-invalid': invalidPhone }" required @blur="validatePhone">
               <div class="invalid-feedback">
                 Vui lòng nhập số điện thoại (10-11 số).
               </div>
@@ -32,7 +32,7 @@
             <div class="mb-3">
               <label for="" class="form-label">Địa chỉ :</label>
               <input type="text" class="form-control form-el" placeholder="" aria-describedby="helpId"
-                v-model="employee.address" :class="{ 'is-invalid': invalidAddress }" required>
+                v-model="employee.address" :class="{ 'is-invalid': invalidAddress }" required @blur="validateAddress">
               <div class="invalid-feedback">
                 Vui lòng nhập địa chỉ !!
               </div>
@@ -42,18 +42,24 @@
                 <div class="mb-3">
                   <select class="form-select form-select-lg" v-model="employee.department">
                     <option value="">-- Vị trí --</option>
-                    <option v-for="department in departments" :key="department.id" :value="department.id">{{
-                      department.nameDepartment }}</option>
+                    <option v-for="department in departments" :key="department.id" :value="department.id" @blur="validateDepament">
+                      {{department.nameDepartment }}</option>
                   </select>
+                  <div v-if="invalidDepartment" class="invalid-feedback">
+                    Vui lòng chọn vị trí !!
+                  </div>
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3 ">
-                  <select class="form-select form-select-lg" v-model="employee.role">
+                  <select class="form-select form-select-lg" v-model="employee.role" @blur="validateRole">
                     <option value="">-- Vai trò --</option>
                     <option v-for="role in roles" :key="role.id" :value="role.id">{{
                       role.nameRole }}</option>
                   </select>
+                  <div v-if="invalidRole" class="invalid-feedback">
+                    Vui lòng chọn vai trò !!
+                  </div>
                 </div>
               </div>
             </div>
@@ -62,7 +68,7 @@
             <div class="mb-3">
               <label for="" class="form-label">Email :</label>
               <input type="text" class="form-control form-el" placeholder="" aria-describedby="helpId"
-                v-model="employee.email" :class="{ 'is-invalid': invalidEmail }" required>
+                v-model="employee.email" :class="{ 'is-invalid': invalidEmail }" required @blur="validateEmail">
               <div class="invalid-feedback">
                 Vui lòng nhập Email và đúng định dạng !!
               </div>
@@ -70,7 +76,7 @@
             <div class="mb-3">
               <label for="" class="form-label">Tài khoản :</label>
               <input type="text" class="form-control form-el" placeholder="" aria-describedby="helpId"
-                v-model="employee.account" :class="{ 'is-invalid': invalidAccount }" required>
+                v-model="employee.account" :class="{ 'is-invalid': invalidAccount }" required @blur="validateAccount">
               <div class="invalid-feedback">
                 Vui lòng nhập tên tài khoản !!
               </div>
@@ -78,7 +84,7 @@
             <div class="mb-3">
               <label for="" class="form-label">Mật khẩu :</label>
               <input type="password" class="form-control form-el" placeholder="" aria-describedby="helpId"
-                v-model="employee.password" :class="{ 'is-invalid': invalidPassword }" required>
+                v-model="employee.password" :class="{ 'is-invalid': invalidPassword }" required @blur="validatePassword">
               <div class="invalid-feedback">
                 Vui lòng nhập mật khẩu !!
               </div>
@@ -90,6 +96,7 @@
                   <option value="1">Nam</option>
                   <option value="0">Nữ</option>
                 </select>
+
               </div>
             </div>
           </div>
@@ -100,7 +107,6 @@
         </div>
       </div>
     </form>
-
   </div>
 </template>
 
@@ -109,9 +115,17 @@ import axios from 'axios';
 export default {
   name: 'FormCreateEmployee',
   data: () => ({
+    searchDepartment: '',
+    invalidName: false,
+    invalidPhone: false,
+    invalidAddress: false,
+    invalidEmail: false,
+    invalidAccount: false,
+    invalidPassword: false,
+    invalidRole: false,
+    invalidDepartment: false,
     departments: [],
     roles: [],
-    searchDepartment: '',
     employee: {
       email: '',
       username: '',
@@ -133,6 +147,12 @@ export default {
       .catch(error => {
         console.error('Lỗi khi gọi API departments:', error);
       });
+    this.$refs.usernameInput.addEventListener('blur', this.validateName);
+    this.$refs.phoneInput.addEventListener('blur', this.validatePhone);
+    this.$refs.addressInput.addEventListener('blur', this.validateAddress);
+    this.$refs.emailInput.addEventListener('blur', this.validateEmail);
+    this.$refs.accountInput.addEventListener('blur', this.validateAccount);
+    this.$refs.passwordInput.addEventListener('blur', this.validatePassword);
   }
   ,
   methods: {
@@ -167,30 +187,58 @@ export default {
         .catch((error) => {
           alert('Failed to add employee: ' + error.response.data.message);
         });
-        this.$router.push({ name: 'list-employee' });
+      this.$router.push({ name: 'list-employee' });
     },
-  }, computed: {
-    invalidName() {
-      return this.employee.username.trim() === '';
-    },
-    invalidPhone() {
-      const regex = /^[0-9]{10,11}$/;
-      return !regex.test(this.employee.phone.trim());
-    },
-    invalidEmail() {
-      return !this.employee.email.match(/\S+@\S+\.\S+/);
-    },
-    invalidPassword() {
-      return this.employee.password.trim() === '';
-    },
-    invalidAccount() {
-      return this.employee.account.trim() === '';
-    },
-    invalidAddress() {
-      return this.employee.address.trim() === '';
+    validateName() {
+      if (!this.employee.username.trim()) {
+        this.invalidName = true;
+      } else {
+        this.invalidName = false;
+      }
+    }, validatePhone() {
+      if (!this.employee.phone || !/^\d{10,11}$/.test(this.employee.phone)) {
+        this.invalidPhone = true;
+      } else {
+        this.invalidPhone = false;
+      }
+    }, validateAddress() {
+      if (!this.employee.address.trim()) {
+        this.invalidAddress = true;
+      } else {
+        this.invalidAddress = false;
+      }
+    }, validateEmail() {
+      if (!this.employee.email || !/\S+@\S+\.\S+/.test(this.employee.email)) {
+        this.invalidEmail = true;
+      } else {
+        this.invalidEmail = false;
+      }
+    }, validateAccount() {
+      if (!this.employee.account.trim()) {
+        this.invalidAccount = true;
+      } else {
+        this.invalidAccount = false;
+      }
+    }, validatePassword() {
+      if (!this.employee.password.trim()) {
+        this.invalidPassword = true;
+      } else {
+        this.invalidPassword = false;
+      }
+    }, validateRole() {
+      if (this.employee.role != '') {
+        this.invalidRole = true;
+      } else {
+        this.invalidRole = false;
+      }
+    }, validateDepament() {
+      if (this.employee.role != '') {
+        this.invalidRole = true;
+      } else {
+        this.invalidRole = false;
+      }
     }
-  },
-
+  }
 }
 </script>
 

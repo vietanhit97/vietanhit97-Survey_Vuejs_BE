@@ -24,10 +24,8 @@
                         <a class="btn btn-sm "><i class="fa-solid fa-pen-to-square fa-2x" style="color: blue;"
                                 data-bs-toggle="modal" data-bs-target="#exampleModalCenter"></i></a>
                         <a href="" class="btn btn-sm "><i class="fa-solid fa-copy fa-2x"></i></a>
-
                     </td>
                 </tr>
-
             </tbody>
         </table>
         <div class="removeAll text-left"> <button class="btn btn-danger" v-if="showDeleteButton"
