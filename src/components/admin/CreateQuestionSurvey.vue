@@ -67,7 +67,7 @@
                 <button class="btn btn-sm btn-primary mt-2" @click="addOption">Thêm tùy chọn</button>
             </div>
             <div class="d-flex justify-content-center align-items-center mt-5">
-                <button class="btn btn-success me-2" @click="addOption(question)">Thêm câu hỏi</button>
+                <button class="btn btn-success me-2">Thêm câu hỏi</button>
             </div>
         </div>
     </div>

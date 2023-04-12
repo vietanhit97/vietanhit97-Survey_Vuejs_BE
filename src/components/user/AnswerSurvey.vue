@@ -2,10 +2,10 @@
     <div class="CreateQuestionContent">
         <form method="POST" @submit="submitSurvey">
             <div class="container bg ">
-                <div class="title">
-                    <h5 class="t1">
+                <div class="title text-center">
+                    <h3 class="t1">
                         {{ survey.nameSurvey }}
-                    </h5>
+                    </h3>
                     <div class="mb-5">
                         <label for="" class="form-label">Nội dung : {{ survey.contentSurvey }}</label>
                     </div>
@@ -21,10 +21,10 @@
                         </div>
                     </div>
                     <div v-else-if="question.questionType.id === 2">
-                        <div v-for="option in question.optionQuestionSurveys" :key="option.id">
+                        <div v-for="option in question.optionQuestions" :key="option.id">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" :name="question.id" :id="option.nameOption"
-                                    v-model="optionInput[question.id]" :value="option.id">
+                                    v-model="optionInput[option.id]" :value="option.id">
                                 <label class="form-check-label" :for="option.id">
                                     {{ option.nameOption }}
                                 </label>
@@ -32,10 +32,10 @@
                         </div>
                     </div>
                     <div v-else>
-                        <div v-for="option in question.optionQuestionSurveys" :key="option.id">
+                        <div v-for="option in question.optionQuestions" :key="option.id">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox" :name="option.id" :id="option.nameOption"
-                                    v-model="optionInput[option.id]" :value="option.id">
+                                    v-model="optionInputChechbox[option.id]" :value="option.id">
                                 <label class="form-check-label" for="inlineRadio"> {{ option.nameOption }}</label>
                             </div>
                         </div>
@@ -59,13 +59,14 @@ export default {
             answers: [], // danh sách AnswerSurvey
             options: [],
             textInput: {},
-            optionInput: {}
+            optionInput: {},
+            optionInputChechbox: {}
         }
     }, mounted() {
-        axios.get(`http://localhost:8081/survey/${this.$route.params.id}`)
+        axios.get(`http://localhost:8081/survey-user/${this.$route.params.id}`)
             .then(response => {
                 this.survey = response.data;
-                // console.log(this.survey);
+                console.log(this.survey);
             })
             .catch(error => {
                 console.log(error);
@@ -79,27 +80,30 @@ export default {
                 if (question.questionType.id === 1) {
                     const answer = {
                         contentAnswerSurvey: this.textInput[question.id],
-                        userId: 5, // ID của người dùng
+                        userId: 1, // ID của người dùng
                         surveyId: this.survey.id, // ID của Survey
                         question_Survey: question.id, // ID của QuestionSurvey hiện tại
                         isDelete: false,
-
                     };
                     answerSurveys.push(answer);
                 } else if (question.questionType.id === 2) {
-                    const option = {
-                        userId: 5,
-                        surveyId: this.survey.id,
-                        question_Survey: question.id,
-                        isDelete: false,
-                        optionQuestionSurvey: this.optionInput[question.id],
-                    };
-                    answerSurveys.push(option);
+                    for (let optionRadio of question.optionQuestions) {
+                        if (this.optionInput[optionRadio.id]) {
+                            const option = {
+                                userId: 1,
+                                surveyId: this.survey.id,
+                                question_Survey: question.id,
+                                isDelete: false,
+                                optionQuestionSurvey: optionRadio.id,
+                            };
+                            answerSurveys.push(option);
+                        }
+                    }
                 } else {
-                    for (let option of question.optionQuestionSurveys) {
-                        if (this.optionInput[option.id]) {
+                    for (let option of question.optionQuestions) {
+                        if (this.optionInputChechbox[option.id]) {
                             const optionAnswer = {
-                                userId: 5,
+                                userId: 1,
                                 surveyId: this.survey.id,
                                 question_Survey: question.id,
                                 isDelete: false,
@@ -126,7 +130,7 @@ export default {
                     // Xử lý lỗi
                     console.log(error);
                 });
-            this.$router.push({ name: 'tk-user' });
+            this.$router.push({ name: 'answer-success' });
         },
     },
 }

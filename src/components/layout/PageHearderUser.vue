@@ -13,7 +13,7 @@
                             <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                                 <router-link to="/surveys-user" exact class="nav-link"
                                     :class="{ 'active': $route.path === '/surveys-user' }">
-                                    Thành Viên
+                                    Khảo sát
                                 </router-link>
                             </ul>
                         </div>

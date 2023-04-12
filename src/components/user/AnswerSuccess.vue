@@ -2,7 +2,7 @@
     <div>
         <div class="d-flex justify-content-center tk">
             <h3>
-                Cảm ơn đã thức hiện khảo sát !!
+                Cảm ơn đã thực hiện khảo sát !!
             </h3>
         </div>
         <div class="d-flex justify-content-center ">

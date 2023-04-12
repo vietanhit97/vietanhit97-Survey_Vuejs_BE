@@ -63,7 +63,7 @@ export default {
     },
     methods: {
         getAllSurveys(pageNumber = 1) {
-            axios.get(`http://localhost:8081/survey/surveys`, {
+            axios.get(`http://localhost:8081/survey-user/surveys`, {
                 params: {
                     name: this.searchName.trim(),
                     pageNumber: pageNumber - 1,
