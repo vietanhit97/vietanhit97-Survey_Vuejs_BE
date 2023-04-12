@@ -10,47 +10,49 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(VueRouter)
-import Home from './PageListSurvey.vue'
-import About from './PageSurveySetup.vue'
-import Text from './PageCreateText.vue'
+import PageListSurveyAdmin from './PageListSurveyAdmin.vue'
+import PageCreateSurvey from './PageCreateSurvey.vue'
 import PageListSurveyUser from './PageListSurveyUser.vue'
 import PageSurveyUser from './PageSurveyUser.vue'
-import PagePreviewSurvey from './PagePreviewSurvey.vue'
 import PageListEmployeeSurvey from './PageListEmployeeSurvey.vue'
-import PageFormCreateEmployee from './PageFormCreateEmployee.vue'
-import PageStatisticalSurvey from './PageStatisticalSurvey.vue'
-import PageExternalUsers from './PageExternalUsers.vue'
-import PageTY from './PageTY.vue'
-import PageRegisterUser from './PageRegisterUser.vue'
+import PageFormCreateEmployee from './PageCreateEmployee.vue'
+import PageExternalUsers from './PageLoginAdmin.vue'
+import PageAnswerSuccess from './PageAnswerSuccess.vue'
+import PageRegisterUser from './PageRegisterAdmin.vue'
 import PageRegiterSuccess from './PageRegiterSuccess.vue'
-import PageUpdateEmployee from './PageUpdateEmployee.vue'
+import PageUpdateEmployee from './PageEditEmployee.vue'
 
 const router = new VueRouter({
   mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'login',
+      component: PageExternalUsers
     },
     {
-      path: '/about',
-      name: 'about',
-      component: About
+      path: '/surveys-admin',
+      name: 'surveys-admin',
+      component: PageListSurveyAdmin
     },
     {
-      path: '/text',
-      name: 'text',
-      component: Text
+      path: '/create-survey',
+      name: 'create-survey',
+      component: PageCreateSurvey
     }, {
-      path: '/user-listsurvey',
-      name: 'user-listsurvey',
+      path: '/surveys-user',
+      name: 'surveys-user',
       component: PageListSurveyUser
     },
     {
-      path: '/user-survey/:id',
-      name: 'user-survey',
+      path: '/answer-survey/:id',
+      name: 'answer-survey',
       component: PageSurveyUser
+    },
+    {
+      path: '/list-employee',
+      name: 'list-employee',
+      component: PageListEmployeeSurvey
     },
     {
       path: '/update-employee/:id',
@@ -58,37 +60,18 @@ const router = new VueRouter({
       component: PageUpdateEmployee
     },
     {
-      path: '/preview-survey',
-      name: 'preview-survey',
-      component: PagePreviewSurvey
-    }, {
-      path: '/list-employee',
-      name: 'list-employee',
-      component: PageListEmployeeSurvey
-    },
-    {
       path: '/create-employee',
       name: 'create-employee',
       component: PageFormCreateEmployee
     },
     {
-      path: '/statistical-employee',
-      name: 'statistical-employee',
-      component: PageStatisticalSurvey
+      path: '/answer-success',
+      name: 'answer-success',
+      component: PageAnswerSuccess
     },
     {
-      path: '/external-users',
-      name: 'external-users',
-      component: PageExternalUsers
-    },
-    {
-      path: '/tk-user',
-      name: 'tk-user',
-      component: PageTY
-    },
-    {
-      path: '/register-user',
-      name: 'register-user',
+      path: '/register-admin',
+      name: 'register-admin',
       component: PageRegisterUser
     },
     {

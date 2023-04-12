@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <PageHearderUser />
-        <ConTentThanks />
+        <AnswerSuccess />
         <PageFooter />
     </div>
 </template>
@@ -9,11 +9,11 @@
 <script>
 import PageHearderUser from './components/layout/PageHearderUser.vue'
 import PageFooter from './components/layout/PageFooter.vue'
-import ConTentThanks from './components/ConTentThanks.vue'
+import AnswerSuccess from './components/user/AnswerSuccess.vue'
 export default {
     name: 'PageTY',
     components: {
-        PageHearderUser, PageFooter,ConTentThanks
+        PageHearderUser, PageFooter,AnswerSuccess
     }
 }
 </script>

@@ -1,23 +1,21 @@
 <template>
     <div class="wrapper">
-        <PageHearder/>
-        <ListEmployeeSurvey/>
-        <PageFooter/>
+        <PageHearder />
+        <ListEmployee />
+        <PageFooter />
     </div>
 </template>
 
 <script>
 import PageHearder from './components/layout/PageHearder.vue'
 import PageFooter from './components/layout/PageFooter.vue'
-import ListEmployeeSurvey from './components/admin/ListEmployeeSurvey.vue'
+import ListEmployee from './components/admin/ListEmployee.vue'
 export default {
-    name:'PageListEmployeeSurvey',
+    name: 'PageListEmployee',
     components: {
-        PageHearder,PageFooter,ListEmployeeSurvey
+        PageHearder, PageFooter, ListEmployee
     }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

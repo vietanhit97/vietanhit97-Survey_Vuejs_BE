@@ -1,20 +1,18 @@
 <template>
     <div class="wrapper">
         <PageHearder />
-        <ContentAddSurvey />
-        <PageFooter />
+        <CreateQuestionSurvey/> 
     </div>
 </template>
 
 <script>
 import PageHearder from './components/layout/PageHearder.vue'
-import PageFooter from './components/layout/PageFooter.vue'
-import ContentAddSurvey from './components/ContentAddSurvey.vue'
+import CreateQuestionSurvey from './components/admin/CreateQuestionSurvey.vue'
 
 export default {
     name: 'PageSurveySetup',
     components: {
-        PageHearder, PageFooter, ContentAddSurvey
+        PageHearder, CreateQuestionSurvey
     }
 }
 </script>

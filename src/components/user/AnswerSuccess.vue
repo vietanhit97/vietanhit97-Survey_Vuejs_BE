@@ -6,7 +6,7 @@
             </h3>
         </div>
         <div class="d-flex justify-content-center ">
-            <router-link to="/user-listsurvey" class="d-block text-center mt-3">
+            <router-link to="/surveys-user" class="d-block text-center mt-3">
                 Quay về trang danh sách
             </router-link>
         </div>

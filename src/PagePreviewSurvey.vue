@@ -1,19 +1,17 @@
 <template>
     <div class="wrapper">
         <PageHearder />
-        <SaveContent />
-        <PreviewSurvey />
+        <AnswerSurvey />
     </div>
 </template>
 
 <script>
 import PageHearder from './components/layout/PageHearder.vue'
-import PreviewSurvey from './components/PreviewSurvey.vue'
-import SaveContent from './components/SaveContent.vue'
+import AnswerSurvey from './components/user/AnswerSurvey.vue'
 export default {
     name: 'PageSurveySetup',
     components: {
-        PageHearder, PreviewSurvey, SaveContent
+        PageHearder, AnswerSurvey
     }
 }
 </script>

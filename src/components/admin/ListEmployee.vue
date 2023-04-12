@@ -14,7 +14,7 @@
         </div>
         <div class="container mt-5">
             <form @submit.prevent="searchEmployees()">
-                <div class="row d-flex justify-content-center ">
+                <div class="row">
                     <div class="col-4">
                         <div class="mb-3">
                             <input type="text" class="form-control" v-model="searchName" id="" aria-describedby="helpId"
@@ -22,6 +22,7 @@
                         </div>
                     </div>
                     <div class="col-4">
+
                         <div class="mb-3">
                             <input type="text" class="form-control" v-model="searchEmail" id="" aria-describedby="helpId"
                                 placeholder="Gmail...">
@@ -29,14 +30,9 @@
                     </div>
                     <div class="col-4">
                         <div class="row">
-                            <div class="col-6">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" v-model="searchPhone" name="" id=""
-                                        aria-describedby="helpId" placeholder="Số điện thoại ...">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <button type="submit" class="btn btn btn-success">Tìm kiếm</button>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" v-model="searchPhone" name="" id=""
+                                    aria-describedby="helpId" placeholder="Số điện thoại ...">
                             </div>
                         </div>
                     </div>
@@ -59,6 +55,9 @@
                         </div>
                     </div>
                     <div class="col-4">
+                        <div class=" d-flex justify-content-center ">
+                            <button type="submit" class="btn btn btn-success">Tìm kiếm</button>
+                        </div>
                     </div>
                 </div>
 
@@ -77,7 +76,7 @@
                 </thead>
                 <tbody class="tbody">
                     <tr v-for="(employee, index) in employees" :key="employee.id">
-                        <td class="text-right">{{index +=1}}</td>
+                        <td class="text-right">{{ (currentPage - 1) * perPage + index + 1 }}</td>
                         <td class="text-left">{{ employee.userName }}</td>
                         <td>{{ employee.departmentName }}</td>
                         <td class="text-left">{{ employee.email }}</td>
@@ -91,8 +90,6 @@
                     </tr>
                 </tbody>
             </table>
-            <!-- <div class="removeAll text-left"> <button class="btn btn-danger" v-if="showDeleteButton"
-                    @click="deleteSelectedemployees">Xóa</button></div> -->
             <b-pagination v-model="currentPage" :total-rows="total" :per-page="perPage" @input="searchEmployees"
                 align="center" class="my-3"></b-pagination>
 
@@ -103,10 +100,7 @@
 import axios from 'axios';
 export default {
     name: 'ListEmployeeSurvey',
-    components: {
-        //   Pagination
-    }
-    , data() {
+    data() {
         return {
             employees: [],
             total: 0,
@@ -145,7 +139,7 @@ export default {
                     role: this.searchRole,
                     pageNumber: pageNumber - 1,
                     pageSize: this.perPage,
-                    
+
                 }
             }).then(response => {
                 this.employees = response.data.data.content;
@@ -178,7 +172,7 @@ export default {
                 this.deleteEmployee(id);
             }
         },
-    }, 
+    },
 }
 </script>
 
