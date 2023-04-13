@@ -12,6 +12,7 @@
                         <input type="password" id="typePasswordX" class="form-control form-control-lg"
                             v-model="jwt.password" placeholder="Nhập mật khẩu" />
                     </div>
+                    
                     <div class="d-flex align-items-center justify-content-center bg-cl">
                         <button class="btn btn-primary me-2" type="submit">Đăng nhập</button>
                         <router-link to="register-admin" class="btn btn-success">Đăng ký</router-link>
@@ -44,7 +45,7 @@ export default {
         login() {
             const newJwt = {
                 username: this.jwt.username,
-                password: this.jwt.username
+                password: this.jwt.password
             };
             axios.post('http://localhost:8081/auth/login', newJwt)
                 .then(() => {

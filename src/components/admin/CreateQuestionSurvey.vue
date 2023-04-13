@@ -30,7 +30,7 @@
                         v-model="CreateSurveyDto.contentSurveyCreateSurvey" rows="1"></textarea>
                 </div>
             </div>
-            <div class="content mt-5">
+            <div class="content mt-5" v-for="(question, index) in questions" :key="index">
                 <div class="row">
                     <div class="col-4">
                         <label for="" class="form-label">Câu hỏi: </label>
@@ -64,10 +64,10 @@
                         </div>
                     </label>
                 </div>
-                <button class="btn btn-sm btn-primary mt-2" @click="addOption">Thêm tùy chọn</button>
+                <button class="btn btn-sm btn-primary mt-2" @click="addOption(question)">Thêm tùy chọn</button>
             </div>
             <div class="d-flex justify-content-center align-items-center mt-5">
-                <button class="btn btn-success me-2">Thêm câu hỏi</button>
+                <button class="btn btn-success me-2" @click="addQuestion">Thêm câu hỏi</button>
             </div>
         </div>
     </div>
@@ -83,13 +83,19 @@ export default {
             CreateSurveyDto: {
                 nameSurveyCreateSurvey: '',
                 contentSurveyCreateSurvey: '',
-                nameQuestionCreateSurvey: '',
-                questionTypeIdCreateSurvey: '',
-                nameOptionCreateSurvey: ''
+                nameOptionCreateSurvey: '',
+                questions: [
+                    {
+                        nameQuestionCreateSurvey: '',
+                        questionTypeIdCreateSurvey: '',
+                        options: ['Tùy chọn 1'],
+                        selectedOptions: [],
+                    },
+                ],
             },
-            options: ['Tùy chọn 1'],
-            selectedOptions: [],
-            questions: []
+            // options: ['Tùy chọn 1'],
+            // selectedOptions: [],
+            // questions: []
         }
     },
     mounted() {
@@ -106,24 +112,26 @@ export default {
             const newCreateSurveyDto = {
                 nameSurveyCreateSurvey: this.CreateSurveyDto.nameSurveyCreateSurvey,
                 contentSurveyCreateSurvey: this.CreateSurveyDto.contentSurveyCreateSurvey,
-                nameQuestionCreateSurvey: this.CreateSurveyDto.nameQuestionCreateSurvey,
-                questionTypeIdCreateSurvey: this.CreateSurveyDto.questionTypeIdCreateSurvey,
+                nameQuestionCreateSurvey: this.CreateSurveyDto.questions.nameQuestionCreateSurvey,
+                questionTypeIdCreateSurvey: this.CreateSurveyDto.questions.questionTypeIdCreateSurvey,
                 nameOptionCreateSurvey: this.CreateSurveyDto.nameOptionCreateSurvey,
             };
+
             axios.post('http://localhost:8081/createSurvey', newCreateSurveyDto)
                 .then(() => {
                     this.CreateSurveyDto.nameSurveyCreateSurvey = '';
                     this.CreateSurveyDto.contentSurveyCreateSurvey = '';
-                    this.CreateSurveyDto.nameQuestionCreateSurvey = '';
-                    this.CreateSurveyDto.questionTypeIdCreateSurvey = '';
+                    this.CreateSurveyDto.questions.nameQuestionCreateSurvey = '';
+                    this.CreateSurveyDto.questions.questionTypeIdCreateSurvey = '';
                     this.CreateSurveyDto.nameOptionCreateSurvey = '';
                 })
                 .catch((error) => {
                     alert('Failed to add questionSurvey: ' + error.response.data.message);
                 });
         },
-        addOption() {
-            this.options.push('Tùy chọn ' + (this.options.length + 1));
+        addOption(question) {
+            question.options.push('Tùy chọn ' + (this.questions.options.length + 1));
+
         },
         removeOption(option) {
             const index = this.options.indexOf(option);
@@ -132,6 +140,7 @@ export default {
             }
         }
     },
+
     watch: {
         selectedOptions: function (newVal, oldVal) {
             for (const option of oldVal) {

@@ -62,7 +62,7 @@
                         <td>{{ survey.numberOfParticipants }}</td>
                         <td class="text-left">{{ survey.progress }}</td>
                         <td>{{ survey.expiration }}</td>
-                        <td><a class="btn btn-sm " @click="confirmDelete(survey.id)"><i class="fa-solid fa-trash-can fa-2x "
+                        <td><a class="btn btn-sm " @click="confirmSurvey(survey.id)"><i class="fa-solid fa-trash-can fa-2x "
                                     style="color: red;"></i></a>
                             <a class="btn btn-sm "><i class="fa-solid fa-pen-to-square fa-2x" style="color: blue;"
                                     data-bs-toggle="modal" data-bs-target="#exampleModalCenter"></i></a>

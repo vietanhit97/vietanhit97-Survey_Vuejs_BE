@@ -29,6 +29,7 @@
                             <th scope="col"></th>
                         </tr>
                     </thead>
+
                     <tbody class="tbody">
                         <tr v-for="(survey, index) in surveys" :key="survey.id">
                             <td class="text-right">{{ index+=1 }}</td>
@@ -38,8 +39,11 @@
                                         class="btn-info fa-solid fa-circle-info fa-2x"></i></router-link></td>
                         </tr>
                     </tbody>
+
+
+
                 </table>
-                <b-pagination v-model="currentPage" align="center" :total-rows="totalSurveys" :per-page="pageSize"
+                <b-pagination v-model="currentPage"  align="center" :total-rows="totalSurveys" :per-page="pageSize"
                     @input="getAllSurveys"></b-pagination>
             </form>
         </div>
@@ -58,7 +62,8 @@ export default {
             totalSurveys: 0,
             searchName: '',
         };
-    }, mounted() {
+    },
+    mounted() {
         this.getAllSurveys()
     },
     methods: {
