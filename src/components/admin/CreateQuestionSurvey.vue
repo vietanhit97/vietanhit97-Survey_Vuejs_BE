@@ -39,8 +39,8 @@
                 <div class="row">
                     <div class="col-4">
                         <label for="" class="form-label">Câu hỏi: </label>
-                        <input type="text" name="" v-model="CreateSurveyDto.questions[Qindex].nameQuestionCreateSurvey" id=""
-                            class="form-control " placeholder="Viết câu hỏi của bạn ..." aria-describedby="helpId">
+                        <input type="text" name="" v-model="CreateSurveyDto.questions[Qindex].nameQuestionCreateSurvey"
+                            id="" class="form-control " placeholder="Viết câu hỏi của bạn ..." aria-describedby="helpId">
                     </div>
                     <div class="col-4"></div>
                     <div class="col-4">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
 
 
@@ -68,13 +68,14 @@
                     <label class="form-check-label" :for="'option' + index">
                         <div class="col">
                             <div class="mb-3">
-                                <input type="text" name="" id="" class="form-control" :placeholder="CreateSurveyDto.questions[Qindex].options[index]"
+                                <input type="text" name="" id="" class="form-control"
+                                    :placeholder="CreateSurveyDto.questions[Qindex].options[index]"
                                     aria-describedby="helpId">
                             </div>
                         </div>
                     </label>
                 </div>
-            <button class="btn btn-sm btn-primary mt-2" @click="addOption(Qindex)">Thêm tùy chọn</button>
+                <button class="btn btn-sm btn-primary mt-2" @click="addOption(Qindex)">Thêm tùy chọn</button>
             </div>
             <div class="d-flex justify-content-center align-items-center mt-5">
                 <button class="btn btn-success me-2" @click="addQuestion">Thêm câu hỏi</button>
@@ -126,9 +127,9 @@ export default {
                 nameSurveyCreateSurvey: this.CreateSurveyDto.nameSurveyCreateSurvey,
                 contentSurveyCreateSurvey: this.CreateSurveyDto.contentSurveyCreateSurvey,
                 nameQuestionCreateSurvey: this.CreateSurveyDto.questions[this.CreateSurveyDto.questions.length - 1].nameQuestionCreateSurvey || '',
-                questionTypeIdCreateSurvey: this.CreateSurveyDto.questions[this.CreateSurveyDto.questions.length - 1 ].questionTypeIdCreateSurvey,
+                questionTypeIdCreateSurvey: this.CreateSurveyDto.questions[this.CreateSurveyDto.questions.length - 1].questionTypeIdCreateSurvey,
                 nameOptionCreateSurvey: this.CreateSurveyDto.nameOptionCreateSurvey,
-                options: this.CreateSurveyDto.questions[this.CreateSurveyDto.questions.length -  1 ].options,
+                options: this.CreateSurveyDto.questions[this.CreateSurveyDto.questions.length - 1].options,
                 selectedOptions: this.CreateSurveyDto.selectedOptions,
 
             };
@@ -139,20 +140,26 @@ export default {
                 }
             })
                 .then(() => {
-                    this.CreateSurveyDto.nameSurveyCreateSurvey = '',
-                 this.CreateSurveyDto.contentSurveyCreateSurvey = '',
-                 this.CreateSurveyDto.questions[this.CreateSurveyDto.questions.length+ 1  ].nameQuestionCreateSurvey || '',
-                 this.CreateSurveyDto.questions[this.CreateSurveyDto.questions.length+ 1 ].questionTypeIdCreateSurvey || '',
-                 this.CreateSurveyDto.nameOptionCreateSurvey,
-                 this.CreateSurveyDto.questions[this.CreateSurveyDto.questions.length+ 1 ].options,
-                 this.CreateSurveyDto.selectedOptions
+                    // this.CreateSurveyDto.nameSurveyCreateSurvey = '',
+                    //     this.CreateSurveyDto.contentSurveyCreateSurvey = '',
+                    //     this.CreateSurveyDto.questions[this.CreateSurveyDto.questions.length + 1].nameQuestionCreateSurvey  =  '',
+                    //     this.CreateSurveyDto.questions[this.CreateSurveyDto.questions.length + 1].questionTypeIdCreateSurvey =  '',
+                    //     this.CreateSurveyDto.nameOptionCreateSurvey= ' ',
+                    //     this.CreateSurveyDto.questions[this.CreateSurveyDto.questions.length + 1].options= '',
+                    //     this.CreateSurveyDto.selectedOptions= this.CreateSurveyDto.selectedOptions.clear()
+
+                    // this.CreateSurveyDto.selectedOptions.clear();
+                    // this.$router.push('create-survey')
+                    console.log(this.selectedOptions);
+                    this.$router.push({ name: 'surveys-admin' });
+                    
                 })
                 .catch((error) => {
                     alert('Failed to add questionSurvey: ' + error.response.data.message);
                 });
         },
         addOption(index) {
-            this.CreateSurveyDto.questions[index].options.push('Tùy chọn ' + ( this.CreateSurveyDto.questions[index].options.length + 1));
+            this.CreateSurveyDto.questions[index].options.push('Tùy chọn ' + (this.CreateSurveyDto.questions[index].options.length + 1));
         },
 
         addQuestion() {
@@ -160,23 +167,24 @@ export default {
                 nameQuestionCreateSurvey: '',
                 questionTypeIdCreateSurvey: '',
                 options: ['Tùy chọn 1'],
-                
+
             });
         },
 
-        removeOption(option) {
-            const index = this.options.indexOf(option);
+        removeOption(Qindex, option) {
+            const index = this.CreateSurveyDto.questions[Qindex].options.indexOf(option);
+            // const index = this.options.indexOf(option);
             if (index !== -1) {
-                this.options.splice(index, 1);
+                this.CreateSurveyDto.questions[Qindex].options.splice(index, 1);
             }
         }
     },
 
     watch: {
-        selectedOptions: function (newVal, oldVal) {
+        selectedOptions: function (Qindex, newVal, oldVal) {
             for (const option of oldVal) {
                 if (!newVal.includes(option)) {
-                    this.removeOption(option);
+                    this.removeOption(Qindex, option);
                 }
             }
         }

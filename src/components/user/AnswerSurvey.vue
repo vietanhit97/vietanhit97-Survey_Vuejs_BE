@@ -1,5 +1,6 @@
 <template>
     <div class="CreateQuestionContent">
+
         <form method="POST" @submit="submitSurvey">
             <div class="container bg ">
                 <div class="title text-center">
@@ -7,7 +8,7 @@
                         {{ survey.nameSurvey }}
                     </h3>
                     <div class="mb-5">
-                        <label for="" class="form-label">Nội dung : {{ survey.contentSurvey }}</label>
+                        <label for="" class="form-label">Nội dung: {{ survey.contentSurvey }}</label>
                     </div>
                 </div>
                 <div class="title mt-5" v-for="(question, index) in survey.questionSurveys" :key="question.id">
@@ -44,8 +45,11 @@
                 <div class="d-flex justify-content-center align-items-center mt-5">
                     <button type="submit" class="btn btn-success">Gửi</button>
                 </div>
+
             </div>
         </form>
+
+
     </div>
 </template>
 
@@ -62,7 +66,8 @@ export default {
             optionInput: {},
             optionInputChechbox: {}
         }
-    }, mounted() {
+    },
+     mounted() {
         axios.get(`http://localhost:8081/survey-user/${this.$route.params.id}`, {
             headers: {
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token')
@@ -75,7 +80,8 @@ export default {
             .catch(error => {
                 console.log(error);
             });
-    }, methods: {
+    },
+     methods: {
         submitSurvey() {
             // Tạo danh sách AnswerSurvey và OptionQuestionSurvey
             const answerSurveys = [];
@@ -127,8 +133,10 @@ export default {
                         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                     }
                 });
+
                 requests.push(answerSurveysRequest);
             }
+            
             Promise.all(requests)
                 .then((responses) => {
                     // Xử lý kết quả trả về
