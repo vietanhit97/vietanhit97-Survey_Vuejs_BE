@@ -94,7 +94,11 @@ export default {
     },
     mounted() {
         axios.get('http://localhost:8081/question-type/types', {
-        }).then(response => {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            }
+        }
+        ).then(response => {
             this.types = response.data;
             console.log(this.types);
         }).catch(error => {
@@ -110,7 +114,11 @@ export default {
                 questionTypeIdCreateSurvey: this.CreateSurveyDto.questionTypeIdCreateSurvey,
                 nameOptionCreateSurvey: this.CreateSurveyDto.nameOptionCreateSurvey,
             };
-            axios.post('http://localhost:8081/createSurvey', newCreateSurveyDto)
+            axios.post('http://localhost:8081/createSurvey', newCreateSurveyDto,{
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            })
                 .then(() => {
                     this.CreateSurveyDto.nameSurveyCreateSurvey = '';
                     this.CreateSurveyDto.contentSurveyCreateSurvey = '';

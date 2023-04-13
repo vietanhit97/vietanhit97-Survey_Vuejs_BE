@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import qs from 'qs';
 import PageHearder from './components/layout/PageHearder.vue'
 import PageFooter from './components/layout/PageFooter.vue'
 import axios from 'axios';
@@ -43,17 +44,25 @@ export default {
     methods: {
         login() {
             const newJwt = {
-                username: this.jwt.username,
-                password: this.jwt.username
+                username: this.jwt.username.trim(),
+                password: this.jwt.password.trim(),
             };
-            axios.post('http://localhost:8081/auth/login', newJwt)
-                .then(() => {
-                    alert('Login succesfully!!');
-                    this.$router.push({ name: 'home' })
+            const data = qs.stringify(newJwt);
+            const config = {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            };
+            axios.post('http://localhost:8081/auth/login', data, config)
+                .then(response => {
+                    const token = response.data.access_token;
+                    sessionStorage.setItem('token', token);
+                    alert('Login successfully!!');
+                    this.$router.push({ name: 'surveys-admin' });
                 })
-                .catch((error) => {
+                .catch(error => {
                     alert('Login failed!!: ' + error);
-                })
+                });
         }
     }
 }

@@ -42,8 +42,9 @@
                 <div class="mb-3">
                   <select class="form-select form-select-lg" v-model="employee.department">
                     <option value="">-- Vị trí --</option>
-                    <option v-for="department in departments" :key="department.id" :value="department.id" @blur="validateDepament">
-                      {{department.nameDepartment }}</option>
+                    <option v-for="department in departments" :key="department.id" :value="department.id"
+                      @blur="validateDepament">
+                      {{ department.nameDepartment }}</option>
                   </select>
                   <div v-if="invalidDepartment" class="invalid-feedback">
                     Vui lòng chọn vị trí !!
@@ -139,7 +140,11 @@ export default {
     },
   }),
   mounted() {
-    axios.get('http://localhost:8081/employee/roles-department')
+    axios.get('http://localhost:8081/employee/roles-department', {
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+      }
+    })
       .then(response => {
         this.departments = response.data.departments;
         this.roles = response.data.roles; // Gán dữ liệu từ API vào mảng departments
@@ -170,7 +175,11 @@ export default {
         passwordAccount: this.employee.password,
         eSex: this.employee.sex
       };
-      axios.post('http://localhost:8081/employee/create-employee', newEmployee)
+      axios.post('http://localhost:8081/employee/create-employee', newEmployee, {
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        }
+      })
         .then(() => {
           alert('Employee added successfully!');
           // Reset the form

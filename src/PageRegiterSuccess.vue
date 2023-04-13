@@ -8,7 +8,7 @@
                 </h3>
             </div>
             <div class="d-flex justify-content-center ">
-                <router-link to="/login" class="d-block text-center mt-3">
+                <router-link to="/" class="d-block text-center mt-3">
                     Quay về trang danh sách
                 </router-link>
             </div>
