@@ -73,6 +73,9 @@ export default {
                     name: this.searchName.trim(),
                     pageNumber: pageNumber - 1,
                     pageSize: this.pageSize,
+                },
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(response => {
                 this.surveys = response.data.content;

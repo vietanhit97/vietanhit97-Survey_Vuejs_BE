@@ -119,7 +119,11 @@ export default {
     mounted() {
         this.searchEmployees(),
             // Gọi API "/departments" bằng Axios khi component được mounted
-            axios.get('http://localhost:8081/employee/roles-department')
+            axios.get('http://localhost:8081/employee/roles-department', {
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            })
                 .then(response => {
                     this.departments = response.data.departments;
                     this.roles = response.data.roles; // Gán dữ liệu từ API vào mảng departments
@@ -140,6 +144,9 @@ export default {
                     pageNumber: pageNumber - 1,
                     pageSize: this.perPage,
 
+                },
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(response => {
                 this.employees = response.data.data.content;
@@ -160,7 +167,11 @@ export default {
         async deleteEmployee(employeeId) {
             try {
                 // Gọi API DELETE với employeeId được truyền vào
-                await axios.delete(`http://localhost:8081/employee/${employeeId}`);
+                await axios.delete(`http://localhost:8081/employee/${employeeId}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                });
                 this.employees = this.employees.filter(employee => employee.id !== employeeId);
                 // Xử lý logic sau khi xóa nhân viên thành công
             } catch (error) {
@@ -171,8 +182,8 @@ export default {
                 // Gọi hàm xóa tại đây
                 this.deleteEmployee(id);
             }
-        },
-    },
+        }
+    }
 }
 </script>
 

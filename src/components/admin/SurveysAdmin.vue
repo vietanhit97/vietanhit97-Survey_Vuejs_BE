@@ -23,8 +23,6 @@
                     </div>
                     <div class="col-3">
                         <div class="mb-3">
-                            <!-- <input type="date" class="form-control" v-model="searchStartDate" id="" aria-describedby="helpId" -->
-                            <!-- placeholder="startDate"> -->
                             <input type="date" id="inputPassword6" v-model="searchStartDate" class="form-control"
                                 aria-describedby="passwordHelpInline">
                         </div>
@@ -103,6 +101,9 @@ export default {
                     endDate: this.searchEndDate,
                     pageNumber: pageNumber - 1,
                     pageSize: this.perPage,
+                },
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
                 }
             }).then(response => {
                 this.surveys = response.data.data.content;
@@ -115,10 +116,18 @@ export default {
         updateCheckedStatus() {
             this.showDeleteButton = this.surveys.some(item => item.checked);
         },
+        deleteSelectedemployees() {
+            this.surveys = this.surveys.filter(item => !item.checked);
+            this.showDeleteButton = false;
+        },
         async deleteSurvey(surveyId) {
             try {
                 // Gọi API DELETE với surveyId được truyền vào
-                await axios.delete(`http://localhost:8081/survey/${surveyId}`);
+                await axios.delete(`http://localhost:8081/survey/${surveyId}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                });
                 this.surveys = this.surveys.filter(survey => survey.id !== surveyId);
                 // Xử lý logic sau khi xóa nhân viên thành công
             } catch (error) {

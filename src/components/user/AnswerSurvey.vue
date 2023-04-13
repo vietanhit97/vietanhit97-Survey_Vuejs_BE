@@ -63,7 +63,11 @@ export default {
             optionInputChechbox: {}
         }
     }, mounted() {
-        axios.get(`http://localhost:8081/survey-user/${this.$route.params.id}`)
+        axios.get(`http://localhost:8081/survey-user/${this.$route.params.id}`, {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            }
+        })
             .then(response => {
                 this.survey = response.data;
                 console.log(this.survey);
@@ -118,7 +122,11 @@ export default {
             const requests = [];
             // Gửi danh sách AnswerSurvey lên API
             if (answerSurveys.length > 0) {
-                const answerSurveysRequest = axios.post('http://localhost:8081/answer-survey/answer-surveys', answerSurveys);
+                const answerSurveysRequest = axios.post('http://localhost:8081/answer-survey/answer-surveys', answerSurveys, {
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                });
                 requests.push(answerSurveysRequest);
             }
             Promise.all(requests)

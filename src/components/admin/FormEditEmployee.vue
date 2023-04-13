@@ -56,7 +56,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="mb-3 ">
-                                    <select class="form-select form-select-lg" v-model="employee.roleId" @blur="validateRole">
+                                    <select class="form-select form-select-lg" v-model="employee.roleId"
+                                        @blur="validateRole">
                                         <option value="">-- Vai trò --</option>
                                         <option v-for="role in roles" :key="role.id" :value="role.id">{{
                                             role.nameRole }}</option>
@@ -148,7 +149,11 @@ export default {
     },
     mounted() {
         // Gọi API "/departments" bằng Axios khi component được mounted
-        axios.get(`http://localhost:8081/employee/getEmployee/${this.$route.params.id}`)
+        axios.get(`http://localhost:8081/employee/getEmployee/${this.$route.params.id}`, {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            }
+        })
             .then(response => {
                 this.employee = response.data;
                 console.log(this.employee);
@@ -224,9 +229,13 @@ export default {
                 this.invalidDepartment = false;
             }
         }, updateEmployee() {
-            axios.put(`http://localhost:8081/employee/update-employee/${this.$route.params.id}`, this.employee)
-                .then(response => {             
-                    console.log('Cập nhật thông tin nhân viên thành công! ',response);
+            axios.put(`http://localhost:8081/employee/update-employee/${this.$route.params.id}`, this.employee,{
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            })
+                .then(response => {
+                    console.log('Cập nhật thông tin nhân viên thành công! ', response);
                 })
                 .catch(error => {
                     console.log('Có lỗi xảy ra khi cập nhật thông tin nhân viên: ', error);
